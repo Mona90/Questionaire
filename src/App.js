@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './component/Header/Header';
+import Intro from './pages/Intro';
+import Section1 from './pages/Section1';
+import Section2 from './pages/Section2';
+import AllAnswer from './pages/AllAnswer';
+import { createContext, useState } from 'react';
+export const dataContext = createContext({});
 
 function App() {
+  const [data, setData] =  useState({})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <dataContext.Provider value={{data, setData}}>
+      <Header/>
+      <Routes>
+        <Route path='/'>
+          <Route index  element={<Intro />}/>
+          <Route path='section1' element={<Section1 />} />
+          <Route path='section2' element={<Section2/>}/>
+          <Route path='all-answer' element={<AllAnswer />}/>
+        </Route>
+      </Routes>
+      </dataContext.Provider>
+    </BrowserRouter>
   );
 }
 
